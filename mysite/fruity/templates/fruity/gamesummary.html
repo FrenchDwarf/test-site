@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>{{game.game_name}}</h1>
+    <table border="1">
+        <tr>
+            <th>Result</th>
+            <th>Probability</th>
+        </tr>
+
+        {% for prob in game.probability_set.all %}
+            <tr>
+                <td>{{prob.result_name}}</td>
+                <td>{{prob.weight_value}}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+    <br />
+    <br />
+    <a href={% url "fruity:game" name_of_game=game.game_name username="kwalee" %}>Play as Kwalee</a>
+    <br />
+    <a href={% url "fruity:game" name_of_game=game.game_name username="other" %}>Play as Other</a>
+
+
+</body>
+</html>

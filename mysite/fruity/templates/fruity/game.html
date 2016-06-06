@@ -1,0 +1,95 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'fruity/style.css' %}" />
+</head>
+<body>
+    <h1>{{game.game_name}}</h1>
+    <h2>{{player.username}}</h2>
+
+    <table width="599" border="0" style="border-collapse:collapse;">
+        <tr height="200">
+            <td class="class1">{{player.coin_count}}</td>
+            <td class="class2">{{player.spin_count}}</td>
+            {% if player.effect == "None" %}
+                <td class="class3">None</td>
+            {% else %}
+                <td class="class3">{{player.effect}}</td>
+            {% endif %}
+        </tr>
+        <tr height="200">
+            {% if player.last_round == "Jackpot" %}
+                <td class="icon6"></td>
+                <td class="icon6"></td>
+                <td class="icon6"></td>
+            {% elif player.last_round == "Lose" %}
+                <td class="icon1"></td>
+                <td class="icon2"></td>
+                <td class="icon3"></td>
+            {% elif player.last_round == "Shield" %}
+                <td class="icon1"></td>
+                <td class="icon1"></td>
+                <td class="icon1"></td>
+            {% elif player.last_round == "SlowMo" %}
+                <td class="icon2"></td>
+                <td class="icon2"></td>
+                <td class="icon2"></td>
+            {% elif player.last_round == "Swarm" %}
+                <td class="icon3"></td>
+                <td class="icon3"></td>
+                <td class="icon3"></td>
+            {% elif player.last_round == "3 x Coin" %}
+                <td class="icon5"></td>
+                <td class="icon5"></td>
+                <td class="icon5"></td>
+            {% elif player.last_round == "2 x Coin" %}
+                <td class="icon3"></td>
+                <td class="icon5"></td>
+                <td class="icon5"></td>
+            {% elif player.last_round == "1 x Coin" %}
+                <td class="icon5"></td>
+                <td class="icon2"></td>
+                <td class="icon5"></td>
+            {% elif player.last_round == "3 x Spin" %}
+                <td class="icon4"></td>
+                <td class="icon4"></td>
+                <td class="icon4"></td>
+            {% elif player.last_round == "2 x Spin" %}
+                <td class="icon4"></td>
+                <td class="icon4"></td>
+                <td class="icon6"></td>
+            {% elif player.last_round == "1 x Spin" %}
+                <td class="icon4"></td>
+                <td class="icon5"></td>
+                <td class="icon4"></td>
+            {% endif %}
+        </tr>
+        <tr height="200">
+            {% if player.is_playing %}
+                <td class="class7">{{player.last_round}}</td>
+            {% else %}
+                <td class="class7"></td>
+            {% endif %}
+
+            <td class="class8">
+                {% if player.spin_count > 0 %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="result" value = "Res" />
+                        <input type="submit" value="Play!" />
+                    </form>
+                {% else %}
+                    No more spins!
+                {% endif %}
+            </td>
+            <td class="class9"></td>
+        </tr>
+
+    </table>
+
+</body>
+</html>

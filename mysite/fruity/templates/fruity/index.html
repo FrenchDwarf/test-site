@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Choose a Game</h1>
+
+    {% if games %}
+        <ul>
+            {% for game in games %}
+                <li><a href={% url "fruity:gamesummary" game.game_name %}><b>{{game.game_name}}</b></a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You don't have any Games. Please add some.</p>
+    {% endif %}
+</body>
+</html>
